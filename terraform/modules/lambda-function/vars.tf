@@ -54,6 +54,7 @@ variable "tags" {
 
 locals {
   filename = join("_", [var.type, replace(var.name, "-", "_")])
+  package_file = "${local.filename}.zip"
   src_path = "${path.module}/../../../functions/src"
   pkg_path = "${path.module}/../../../functions/pkg"
 }

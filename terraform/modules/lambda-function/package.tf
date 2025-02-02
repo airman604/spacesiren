@@ -1,6 +1,6 @@
 data "archive_file" "this" {
   type        = "zip"
-  output_path = "${local.pkg_path}/${local.filename}.zip"
+  output_path = "${local.pkg_path}/${local.package_file}"
 
   source {
     content  = file("${local.src_path}/app_common.py")
@@ -18,10 +18,10 @@ data "archive_file" "this" {
   }
 }
 
-resource "aws_s3_bucket_object" "this" {
+resource "aws_s3_object" "this" {
   bucket = var.functions_bucket
   source = data.archive_file.this.output_path
-  key    = basename(data.archive_file.this.output_path)
+  key    = local.package_file
   etag   = filemd5(data.archive_file.this.output_path)
   tags   = var.tags
 }
