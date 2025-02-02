@@ -638,6 +638,11 @@ class IAMUser:
                 {'Key': "{}-honey-user".format(os.environ['APP_NAME']), 'Value': "true"}
             ]
         )
+        # safety net just in case there are any resource policies
+        response = client.attach_user_policy(
+            UserName=self.username,
+            PolicyArn='arn:aws:iam::aws:policy/AWSDenyAll'
+        )
         iam.add_user_to_group(UserName=self.username, GroupName=self.group_name)
 
         self.__write()
