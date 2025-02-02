@@ -2,7 +2,7 @@
 # Copy that file to terraform-local.tf.
 
 terraform {
-  required_version = "~> 1.1.2"
+  required_version = "~> 1"
 
   required_providers {
     archive = {
